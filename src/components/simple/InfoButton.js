@@ -6,10 +6,10 @@ import colors from '../../styles/colors'
 
 const Button = styled.button`
   height: 90%;
-  width: 20vw;
+  width: 12vw;
   padding: 25px;
   font-size: 1.2em;
-  font-weight: 700;
+  font-weight: 100;
   color: ${colors.blue1};
   text-shadow: ${colors.blue1} 2px 2px 3px;
   background: ${colors.blue2};
@@ -27,8 +27,8 @@ const Button = styled.button`
   }
 `
 
-const TurnButton = () => {
-  return <Button>Turn</Button>
+const InfoButton = ({ onClick, title }) => {
+  return <Button onClick={onClick}>{title}</Button>
 }
 
-export default TurnButton
+export default InfoButton

@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { Normalize } from 'styled-normalize'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 import { createGlobalStyle } from 'styled-components'
+
+import store from './store'
 
 import colors from './styles/colors'
 
@@ -14,16 +17,18 @@ const GlobalStyles = createGlobalStyle`
 body {
   background: ${colors.background};
   font-family: 'Orbitron', sans-serif;
+  button:focus {
+    outline: 0;
+  }
 }
 `
 
 ReactDOM.render(
-  <Fragment>
+  <Provider store={store}>
     <Normalize />
     <GlobalStyles />
-
     <App />
-  </Fragment>,
+  </Provider>,
   document.getElementById('root')
 )
 
