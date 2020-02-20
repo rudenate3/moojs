@@ -8,7 +8,6 @@ const HeaderDiv = styled.div`
   grid-area: header;
   background-color: #000000;
   background-image: linear-gradient(147deg, #000000 0%, #434343 74%);
-  border-bottom: rgba(255, 255, 255, 0.2) 1px solid;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -21,14 +20,14 @@ const Brand = styled.h1`
   font-weight: 700;
 `
 
-const Header = () => {
+const Header = ({ stardate }) => {
   return (
     <HeaderDiv>
       <Brand>MooJS</Brand>
       <div />
       <div />
       <div />
-      <Stardate stardate={3500.1} />
+      <Stardate stardate={stardate} />
     </HeaderDiv>
   )
 }

@@ -8,9 +8,12 @@ import * as serviceWorker from './serviceWorker'
 
 import { createGlobalStyle } from 'styled-components'
 
-import store from './store'
+import store from './redux/store'
 
 import colors from './styles/colors'
+import './assets/style.css'
+
+Math.randomRange = (min, max) => Math.floor(Math.random() * max) + min
 
 const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Orbitron');

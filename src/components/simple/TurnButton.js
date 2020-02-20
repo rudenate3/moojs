@@ -27,8 +27,8 @@ const Button = styled.button`
   }
 `
 
-const TurnButton = () => {
-  return <Button>Turn</Button>
+const TurnButton = ({ turnClick }) => {
+  return <Button onClick={turnClick}>Turn</Button>
 }
 
 export default TurnButton

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
 import colors from '../styles/colors'
+
+import { generateGame, turnClick } from '../redux/game/gameActions'
 
 import Footer from './layout/Footer'
 import Header from './layout/Header'
@@ -27,9 +30,17 @@ const Ui = styled.div`
 const SideBar = styled.div`
   // border: orange 3px solid;
   grid-area: sidebar;
+  align-items: center;
   background-color: #000000;
   background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
-  border-left: rgba(255, 255, 255, 0.2) 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`
+
+const SideBarItem = styled.div`
+  color: white;
+  font-size: 1.7rem;
 `
 
 const SetupScreen = styled.div`
@@ -49,18 +60,31 @@ const Submit = styled.div`
   text-align: center;
   height: 100px;
 `
-export default class GameView extends Component {
+
+class GameView extends Component {
   state = {
-    gameSetup: false
+    gameInitialized: false
+  }
+
+  componentDidMount() {
+    this.props.generateGame()
+    this.setState({ gameInitialized: true }) // TODO auto starts game
   }
 
   render() {
+    const { galaxy, stardate } = this.props.game
     const game = (
       <Ui>
-        <Header />
-        <GalaxyView />
-        <SideBar />
-        <Footer />
+        <Header stardate={stardate} />
+        <GalaxyView galaxy={galaxy} />
+        <SideBar>
+          <SideBarItem>Credits: 1000</SideBarItem>
+          <SideBarItem>Freighters: 100</SideBarItem>
+          <SideBarItem>Food: +5</SideBarItem>
+          <SideBarItem>Fleet: 87/100</SideBarItem>
+          <SideBarItem>Research: 100RP</SideBarItem>
+        </SideBar>
+        <Footer {...this.props} />
       </Ui>
     )
 
@@ -76,7 +100,7 @@ export default class GameView extends Component {
             title='Create Game'
             onClick={() => {
               this.setState({
-                gameSetup: true
+                gameInitialized: true
               })
             }}
           />
@@ -84,6 +108,13 @@ export default class GameView extends Component {
       </SetupScreen>
     )
 
-    return this.state.gameSetup === true ? game : gameSetup
+    // return game
+    return this.state.gameInitialized === true ? game : gameSetup
   }
 }
+
+const mapStateToProps = state => ({
+  game: state.game
+})
+
+export default connect(mapStateToProps, { generateGame, turnClick })(GameView)
